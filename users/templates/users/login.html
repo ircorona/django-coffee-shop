@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login - Coffee Shop{% endblock %}
+{% block meta_description %}Login to Coffee Shop{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-10 p-8 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold text-center mb-8">Login</h1>
+
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        {% if form.errors %}
+        <p class="text-sm text-red-600 text-center">Invalid username or password.</p>
+        {% endif %}
+
+        <button type="submit" class="w-full rounded-md bg-indigo-900 px-5 py-3 text-sm font-medium tracking-widest text-white uppercase transition-colors hover:bg-indigo-700">
+            Login
+        </button>
+    </form>
+</div>
+{% endblock %}

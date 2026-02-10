@@ -1,12 +1,40 @@
-<h1>Product List</h1>
-<ul>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Lista de Productos - Coffee Shop{% endblock %}
+{% block meta_description %}Browse our coffee shop products{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold text-center my-8">Product List</h1>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
     {% for product in products %}
-        <li>
-            {{ product.name }}
-            <p>{{ product.price }} $</p>
-            {% if product.photo %}
-                <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="max-width: 200px;">
-            {% endif %}
-        </li>
+    <a href="#" class="relative block rounded-tr-3xl border border-gray-100">
+        {% if product.available %}
+        <span class="absolute -top-px -right-px rounded-tr-3xl rounded-bl-3xl bg-rose-600 px-6 py-4 font-medium tracking-widest text-white uppercase">
+            Available
+        </span>
+        {% endif %}
+
+        {% if product.photo %}
+        <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="aspect-square w-full rounded-tr-3xl object-cover">
+        {% else %}
+        <img src="/media/black-coffee-default.jpg" alt="{{ product.name }}" class="aspect-square w-full rounded-tr-3xl object-cover">
+        {% endif %}
+
+        <div class="p-4 text-center">
+            <strong class="text-xl font-medium text-gray-900">{{ product.name }}</strong>
+
+            <p class="mt-2 text-pretty text-gray-700">
+                {{ product.description }}
+            </p>
+
+            <span class="mt-4 block rounded-md border border-indigo-900 bg-indigo-900 px-5 py-3 text-sm font-medium tracking-widest text-white uppercase transition-colors hover:bg-white hover:text-indigo-900">
+                ${{ product.price }}
+            </span>
+        </div>
+    </a>
     {% endfor %}
-</ul>
+</div>
+{% endblock %}
+
