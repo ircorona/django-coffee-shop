@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Add Product to Order - Coffee Shop{% endblock %}
+{% block meta_description %}Add products to your order{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 p-8 bg-amber-50 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-6">Add Product to Order</h1>
+
+    {% if order %}
+    <h2 class="text-lg font-bold mb-4">Available Products:</h2>
+
+    <div class="divide-y divide-gray-300">
+        {% for product in products %}
+        <div class="flex justify-between items-center py-4">
+            <div>
+                <p class="text-gray-800 font-medium">{{ product.name }}</p>
+                <p class="text-sm text-gray-500">${{ product.price }}</p>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <button type="submit" class="rounded-md bg-indigo-900 px-4 py-2 text-sm font-medium text-white uppercase tracking-widest transition-colors hover:bg-indigo-700 cursor-pointer">
+                    Add
+                </button>
+            </form>
+        </div>
+        {% empty %}
+        <p class="text-gray-500 py-3">No products available.</p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-gray-300">
+        <h2 class="text-lg font-bold mb-4">Current Order Items:</h2>
+        {% for item in order.order_products.all %}
+        <div class="flex justify-between items-center py-2">
+            <span class="text-gray-800">{{ item.product.name }}</span>
+            <span class="text-gray-800 font-medium">{{ item.quantity }} x ${{ item.product.price }}</span>
+        </div>
+        {% empty %}
+        <p class="text-gray-500">Your order is empty.</p>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <p class="text-gray-600">You don't have an active order yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
