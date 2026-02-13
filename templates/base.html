@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
 <body>
     <nav class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center">
         <a href="{% url 'product_form' %}" class="flex items-center gap-2 text-xl font-bold">
-            <img src="/media/logos/wired-outline-1702-electric-teapot-hover-pinch.gif" alt="Coffee Shop Logo" class="h-10 w-10">
+            <img src="{% static 'images/wired-outline-1702-electric-teapot-hover-pinch.gif' %}" alt="Coffee Shop Logo" class="h-10 w-10">
             Coffee Shop
         </a>
         <div class="flex items-center gap-4">
